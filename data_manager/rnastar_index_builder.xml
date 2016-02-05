@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<tool id="rnastar_index_builder" name="RNA STAR index" tool_type="manage_data" version="0.0.1">
+    <description>Build an index for use by the RNA STAR mapping tool</description>
+    <requirements>
+        <requirement type="package" version="2.4.0d">rnastar</requirement>
+    </requirements>
+    <command interpreter="bash"><![CDATA[
+    mkdir -p tempstargenomedir
+    STAR
+        --runMode genomeGenerate
+        --genomeDir tempstargenomedir
+        --genomeFastaFiles $input1
+        --runThreadsN \${GALAXY_SLOTS:-1}
+        --genomeChrBinNbits $advanced_options.chr_bin_nbits
+    ]]></command>
+    <inputs>
+        <param name="input1" type="data" format="fasta" label="Genome to index(FASTA format)" />
+        <conditional name="advanced_options">
+            <param name="show_advanced_options" type="boolean" label="Show advanced options?"
+                   truevalue="yes" falsevalue="no" checked="false" />
+            <when value="yes">
+                <param name="chr_bin_nbits" type="integer" label="Scale of chromosome bins"
+                       help="value is log2(chrBin), where chrBin is the size of the bins for genome storage: each chromosome will occupy an integer number of bins" default="18" />
+            </when>
+            <when value="no" />
+        </conditional>
+    </inputs>
+    <outputs>
+        <data from_work_dir="tempstargenomedir" auto_format="false"></data>
+    </outputs>
+</tool>
