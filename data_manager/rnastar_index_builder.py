@@ -3,12 +3,12 @@
 from __future__ import print_function
 import argparse
 from subprocess import check_call, CalledProcessError
-from json import load, dump
-from os import environ, mkdir
+from json import load, dump, dumps
+from os import environ, mkdir, makedirs
 from os.path import isdir, exists
 import shlex
 import sys
-
+    
 def get_id_name( params, dbkey, fasta_description=None):
     #TODO: ensure sequence_id is unique and does not already appear in location file
     sequence_id = params['param_dict']['sequence_id']
@@ -23,12 +23,12 @@ def get_id_name( params, dbkey, fasta_description=None):
     return sequence_id, sequence_name
 
 def make_rnastar_index(output_directory, fasta_filename):
-#     STAR
-#         --runMode genomeGenerate
-#         --genomeDir tempstargenomedir
-#         --genomeFastaFiles $input1
-#         --runThreadsN \${GALAXY_SLOTS:-1}
-#         --genomeChrBinNbits $advanced_options.chr_bin_nbits
+    #STAR
+    #    --runMode genomeGenerate
+    #    --genomeDir tempstargenomedir
+    #    --genomeFastaFiles $input1
+    #    --runThreadsN \${GALAXY_SLOTS:-1}
+    #    --genomeChrBinNbits $advanced_options.chr_bin_nbits
 
     if exists(output_directory) and not isdir(output_directory):
         print("Output directory path already exists but is not a directory: {}".format(output_directory), file=sys.stderr)
@@ -59,13 +59,18 @@ parser.add_argument('--fasta_description', default=None)
 parser.add_argument('--data_table_name', default='rnastar_indexes')
 args = parser.parse_args()
 
-params = load(open(args.output_filename, 'rb'))
+filename = args.output_filename
 
-output_directory = params['output_data'][0]['extra_files_path']
+params = load(open(filename, 'rb'))
+output_directory = params[ 'output_data' ][0]['extra_files_path']
+makedirs( output_directory )
+data_manager_dict = {}
 
 make_rnastar_index(output_directory, args.fasta_filename)
 (sequence_id, sequence_name) = get_id_name(params, args.fasta_dbkey, args.fasta_description)
 data_table_entry = dict(value=sequence_id, dbkey=args.fasta_dbkey, name=sequence_name, path=output_directory)
-output_datatable_dict = dict('data_tables', dict(args.data_table_name, [data_table_entry]))
 
-dump(output_datatable_dict(open(args.output_file, 'wb')))
+dt_tables = {args.data_table_name : [data_table_entry]}
+output_datatable_dict = dict(data_tables=dt_tables)
+
+open( filename, 'wb' ).write( dumps( output_datatable_dict ) )
