@@ -8,7 +8,7 @@ from os import environ, mkdir, makedirs
 from os.path import isdir, exists
 import shlex
 import sys
-    
+
 def get_id_name( params, dbkey, fasta_description=None):
     #TODO: ensure sequence_id is unique and does not already appear in location file
     sequence_id = params['param_dict']['sequence_id']
@@ -70,7 +70,6 @@ make_rnastar_index(output_directory, args.fasta_filename)
 (sequence_id, sequence_name) = get_id_name(params, args.fasta_dbkey, args.fasta_description)
 data_table_entry = dict(value=sequence_id, dbkey=args.fasta_dbkey, name=sequence_name, path=output_directory)
 
-dt_tables = {args.data_table_name : [data_table_entry]}
-output_datatable_dict = dict(data_tables=dt_tables)
-
+#dt_tables = {args.data_table_name : [data_table_entry]}
+output_datatable_dict = dict(data_tables={args.data_table_name : [data_table_entry]})
 open( filename, 'wb' ).write( dumps( output_datatable_dict ) )
