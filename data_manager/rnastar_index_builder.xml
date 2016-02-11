@@ -4,7 +4,7 @@
     <requirements>
         <requirement type="package" version="2.4.0d">rnastar</requirement>
     </requirements>
-    <command interpreter="python">rnastar_index_builder.py "${out_file}" --fasta_filename "${input1.fields.path}" --fasta_dbkey "${input1.fields.dbkey}" --fasta_description "${input1.fields.name}" --data_table_name "rnastar_indexes"</command>
+    <command interpreter="python">rnastar_index_builder.py "${out_file}" --fasta_filename "${input1.fields.path}" --fasta_dbkey "${input1.fields.dbkey}" --fasta_description "${input1.fields.name}" --data_table_name "rnastar_index"</command>
     <inputs>
         <param name="input1" type="select" label="Genome to index(FASTA format)">
             <options from_data_table="all_fasta"/>

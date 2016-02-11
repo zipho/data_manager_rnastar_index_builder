@@ -56,7 +56,7 @@ parser.add_argument('output_filename')
 parser.add_argument('--fasta_filename')
 parser.add_argument('--fasta_dbkey')
 parser.add_argument('--fasta_description', default=None)
-parser.add_argument('--data_table_name', default='rnastar_indexes')
+parser.add_argument('--data_table_name', default='rnastar_index')
 args = parser.parse_args()
 
 filename = args.output_filename

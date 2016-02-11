@@ -1,6 +1,6 @@
 categories:
 - Data Managers
-description: Index a FASTA file for use with RNA STAR and populate the rnastar_indexes.loc file.
+description: Index a FASTA file for use with RNA STAR and populate the rnastar_index.loc file.
 long_description: ''
 name: data_manager_rnastar_index_builder
 owner: sanbi-uwc
