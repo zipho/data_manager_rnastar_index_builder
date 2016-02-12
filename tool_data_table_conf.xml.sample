@@ -1,5 +1,5 @@
 <tables>
-    <table name="rnastar_index" comment_char="#">
+    <table name="rnastar_indexes" comment_char="#">
         <columns>value, dbkey, name, path</columns>
         <file path="tool-data/rnastar_index.loc" />
     </table>
