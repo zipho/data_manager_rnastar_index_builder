@@ -56,12 +56,13 @@ parser.add_argument('output_filename')
 parser.add_argument('--fasta_filename')
 parser.add_argument('--fasta_dbkey')
 parser.add_argument('--fasta_description', default=None)
-parser.add_argument('--data_table_name', default='rnastar_index')
+parser.add_argument('--data_table_name', default='rnastar_indexes')
 args = parser.parse_args()
 
 filename = args.output_filename
 
 params = load(open(filename, 'rb'))
+print(params)
 output_directory = params[ 'output_data' ][0]['extra_files_path']
 makedirs( output_directory )
 data_manager_dict = {}
@@ -70,6 +71,5 @@ make_rnastar_index(output_directory, args.fasta_filename)
 (sequence_id, sequence_name) = get_id_name(params, args.fasta_dbkey, args.fasta_description)
 data_table_entry = dict(value=sequence_id, dbkey=args.fasta_dbkey, name=sequence_name, path=output_directory)
 
-#dt_tables = {args.data_table_name : [data_table_entry]}
 output_datatable_dict = dict(data_tables={args.data_table_name : [data_table_entry]})
 open( filename, 'wb' ).write( dumps( output_datatable_dict ) )
