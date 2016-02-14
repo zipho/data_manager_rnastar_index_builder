@@ -11,15 +11,6 @@
         </param>
         <param type="text" name="sequence_name" value="" label="Name of sequence" />
         <param type="text" name="sequence_id" value="" label="ID for sequence" />
-        <!--<conditional name="advanced_options">-->
-            <!--<param name="show_advanced_options" type="boolean" label="Show advanced options?"-->
-                   <!--truevalue="yes" falsevalue="no" checked="false" />-->
-            <!--<when value="yes">-->
-                <!--<param name="chr_bin_nbits" type="integer" label="Scale of chromosome bins"-->
-                       <!--help="value is log2(chrBin), where chrBin is the size of the bins for genome storage: each chromosome will occupy an integer number of bins" default="18" />-->
-            <!--</when>-->
-            <!--<when value="no" />-->
-        <!--</conditional>-->
     </inputs>
     <outputs>
         <data name="out_file" format="data_manager_json" />

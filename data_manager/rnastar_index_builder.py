@@ -62,7 +62,6 @@ args = parser.parse_args()
 filename = args.output_filename
 
 params = load(open(filename, 'rb'))
-print(params)
 output_directory = params[ 'output_data' ][0]['extra_files_path']
 makedirs( output_directory )
 data_manager_dict = {}
