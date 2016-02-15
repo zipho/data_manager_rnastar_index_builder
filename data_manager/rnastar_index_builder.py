@@ -36,12 +36,12 @@ def make_rnastar_index(output_directory, fasta_filename):
     else:
         nslots = 1
 
-    cmdline_str = 'STAR --runMode genomeGenerate --genomeDir {} --genomeFastaFiles {} --runThreadsN {}'.format(
+    cmdline_str = 'STAR --runMode genomeGenerate --genomeDir {} --genomeFastaFiles {} --runThreadN {}'.format(
         output_directory,
         fasta_filename,
         nslots)
     cmdline = shlex.split(cmdline_str)
-    # cmdline = ('touch', '{}/foo'.format(output_directory))
+    #cmdline = ('touch', '{}/foo'.format(output_directory))
     try:
         check_call(cmdline)
     except CalledProcessError:
