@@ -41,7 +41,6 @@ def make_rnastar_index(output_directory, fasta_filename):
         fasta_filename,
         nslots)
     cmdline = shlex.split(cmdline_str)
-    #cmdline = ('touch', '{}/foo'.format(output_directory))
     try:
         check_call(cmdline)
     except CalledProcessError:
